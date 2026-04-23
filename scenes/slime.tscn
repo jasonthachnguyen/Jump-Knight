@@ -1,0 +1,234 @@
+[gd_scene format=3 uid="uid://322f14jlnusw"]
+
+[ext_resource type="Script" uid="uid://d28spey11t0g4" path="res://scripts/slime.gd" id="1_n6pvg"]
+[ext_resource type="Texture2D" uid="uid://dqxq3cji2vh4u" path="res://assets/brackeys_platformer_assets/sprites/slime_green.png" id="1_p2gj0"]
+[ext_resource type="PackedScene" uid="uid://cgii63fpcau81" path="res://scenes/attack_component.tscn" id="3_n6pvg"]
+[ext_resource type="Script" uid="uid://ciy6hr2k08tsl" path="res://scripts/awake_area_trigger.gd" id="4_pjw23"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_p2gj0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n6pvg"]
+size = Vector2(77, 22.5)
+
+[sub_resource type="Animation" id="Animation_pjw23"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_2npkn"]
+resource_name = "awaken"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 0), Vector2i(1, 0), Vector2i(2, 0), Vector2i(3, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"start_move"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_gstla"]
+resource_name = "hurt"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 2), Vector2i(1, 2), Vector2i(2, 2), Vector2i(3, 2)]
+}
+
+[sub_resource type="Animation" id="Animation_v5wyi"]
+resource_name = "move_left"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 1), Vector2i(1, 1), Vector2i(2, 1), Vector2i(3, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_fd6lc"]
+resource_name = "move"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 1), Vector2i(1, 1), Vector2i(2, 1), Vector2i(3, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gstla"]
+_data = {
+&"RESET": SubResource("Animation_pjw23"),
+&"awaken": SubResource("Animation_2npkn"),
+&"hurt": SubResource("Animation_gstla"),
+&"move_left": SubResource("Animation_v5wyi"),
+&"move_right": SubResource("Animation_fd6lc")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_v5wyi"]
+animation = &"awaken"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2npkn"]
+animation = &"hurt"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_pjw23"]
+animation = &"move_left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fd6lc"]
+animation = &"move_right"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_v5wyi"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_pjw23")
+blend_point_0/pos = -1.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_fd6lc")
+blend_point_1/pos = 1.0
+blend_mode = 1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vnioy"]
+advance_mode = 2
+advance_expression = "awakened == true"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_gstla"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_v5wyi"]
+advance_mode = 2
+advance_expression = "slime_is_hurt == true"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0l8pv"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_a02ik"]
+states/End/position = Vector2(992, 107)
+states/Start/position = Vector2(222, 101)
+states/awaken/node = SubResource("AnimationNodeAnimation_v5wyi")
+states/awaken/position = Vector2(382, 101)
+states/hurt/node = SubResource("AnimationNodeAnimation_2npkn")
+states/hurt/position = Vector2(780, 101)
+states/move/node = SubResource("AnimationNodeBlendSpace1D_v5wyi")
+states/move/position = Vector2(564, 101)
+transitions = ["Start", "awaken", SubResource("AnimationNodeStateMachineTransition_vnioy"), "awaken", "move", SubResource("AnimationNodeStateMachineTransition_gstla"), "move", "hurt", SubResource("AnimationNodeStateMachineTransition_v5wyi"), "hurt", "move", SubResource("AnimationNodeStateMachineTransition_0l8pv")]
+graph_offset = Vector2(-275, -25)
+
+[node name="Slime" type="CharacterBody2D" unique_id=1593769837 groups=["Enemy"]]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_n6pvg")
+
+[node name="RayCastRight" type="RayCast2D" parent="." unique_id=1430580249]
+position = Vector2(0, 4)
+target_position = Vector2(8, 0)
+collision_mask = 4
+
+[node name="RayCastLeft" type="RayCast2D" parent="." unique_id=472840130]
+position = Vector2(0, 4)
+target_position = Vector2(-8, 0)
+collision_mask = 4
+
+[node name="AttackAreaTrigger" type="Area2D" parent="." unique_id=1815127160]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackAreaTrigger" unique_id=1689020178]
+shape = SubResource("CircleShape2D_p2gj0")
+
+[node name="AttackComponent" parent="." unique_id=887944364 instance=ExtResource("3_n6pvg")]
+atkDmg = 2.0
+
+[node name="AwakeAreaTrigger" type="Area2D" parent="." unique_id=1851931843]
+script = ExtResource("4_pjw23")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AwakeAreaTrigger" unique_id=493769548]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_n6pvg")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1674494922]
+texture = ExtResource("1_p2gj0")
+hframes = 4
+vframes = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D" unique_id=925955245]
+libraries/ = SubResource("AnimationLibrary_gstla")
+
+[node name="AnimationTree" type="AnimationTree" parent="Sprite2D/AnimationPlayer" unique_id=185498786]
+unique_name_in_owner = true
+root_node = NodePath("%AnimationTree/../..")
+tree_root = SubResource("AnimationNodeStateMachine_a02ik")
+advance_expression_base_node = NodePath("../../..")
+anim_player = NodePath("..")
+parameters/move/blend_position = -0.00049972534
+
+[connection signal="area_entered" from="AwakeAreaTrigger" to="AwakeAreaTrigger" method="_on_area_entered"]
