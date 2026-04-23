@@ -6,6 +6,7 @@ extends Node2D
 
 var jumped: bool
 var is_moving: bool
+var died: bool
 
 func _on_player_direction_changed(dir) -> void:
 	_change_sprite_dir(dir)
@@ -17,7 +18,6 @@ func _on_player_player_jumped(player_jump_bool) -> void:
 
 func _change_is_moving(dir):
 	if dir == 0:
-		print("true")
 		is_moving = false
 	else:
 		is_moving = true
@@ -32,3 +32,7 @@ func _change_sprite_dir(dir):
 		else false if dir > 0
 		else sprite.flip_h
 		)
+
+
+func _on_health_component_player_died() -> void:
+	died = true 
