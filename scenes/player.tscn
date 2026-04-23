@@ -205,9 +205,9 @@ states/idle/position = Vector2(162, -91)
 states/jump/node = SubResource("AnimationNodeAnimation_fjrip")
 states/jump/position = Vector2(313, 1)
 states/move/node = SubResource("AnimationNodeAnimation_smehm")
-states/move/position = Vector2(313, -176)
+states/move/position = Vector2(300, -184)
 transitions = ["idle", "move", SubResource("AnimationNodeStateMachineTransition_y4r1p"), "move", "jump", SubResource("AnimationNodeStateMachineTransition_d2wvv"), "jump", "death", SubResource("AnimationNodeStateMachineTransition_3v2ag"), "move", "death", SubResource("AnimationNodeStateMachineTransition_jej6c"), "idle", "death", SubResource("AnimationNodeStateMachineTransition_f1ej7"), "move", "idle", SubResource("AnimationNodeStateMachineTransition_oprun"), "jump", "move", SubResource("AnimationNodeStateMachineTransition_a8ls1"), "Start", "idle", SubResource("AnimationNodeStateMachineTransition_qlg0r"), "idle", "jump", SubResource("AnimationNodeStateMachineTransition_tuyoq"), "jump", "idle", SubResource("AnimationNodeStateMachineTransition_fjrip"), "move", "hurt", SubResource("AnimationNodeStateMachineTransition_qfm1y"), "jump", "hurt", SubResource("AnimationNodeStateMachineTransition_4r5pv"), "idle", "hurt", SubResource("AnimationNodeStateMachineTransition_60mlk"), "hurt", "death", SubResource("AnimationNodeStateMachineTransition_i4ail"), "hurt", "move", SubResource("AnimationNodeStateMachineTransition_a38lo"), "hurt", "jump", SubResource("AnimationNodeStateMachineTransition_4ni07"), "hurt", "idle", SubResource("AnimationNodeStateMachineTransition_l71n6")]
-graph_offset = Vector2(-202, -237)
+graph_offset = Vector2(-253, -222)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dqkch"]
 radius = 4.0
@@ -272,4 +272,6 @@ script = ExtResource("5_fjrip")
 
 [connection signal="direction_changed" from="." to="AnimationComponent" method="_on_player_direction_changed"]
 [connection signal="player_jumped" from="." to="AnimationComponent" method="_on_player_player_jumped"]
+[connection signal="animation_finished" from="Sprite2D/AnimationPlayer/AnimationTree" to="AnimationComponent" method="_on_animation_tree_animation_finished"]
 [connection signal="player_died" from="HealthComponent" to="AnimationComponent" method="_on_health_component_player_died"]
+[connection signal="player_hurt" from="HealthComponent" to="AnimationComponent" method="_on_health_component_player_hurt"]
