@@ -233,8 +233,10 @@ func _process(delta: float) -> void:
 
 [node name="Player" type="CharacterBody2D" unique_id=1331366943 groups=["Player"]]
 z_index = 5
+position = Vector2(-1, 0)
 collision_mask = 6
 script = ExtResource("1_onrkg")
+_goomba_velocity = -400.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=522371915]
 unique_name_in_owner = true
@@ -271,7 +273,9 @@ MAX_HP = 10.0
 script = ExtResource("5_fjrip")
 
 [connection signal="direction_changed" from="." to="AnimationComponent" method="_on_player_direction_changed"]
+[connection signal="player_goombaed" from="." to="." method="_on_player_goombaed"]
 [connection signal="player_jumped" from="." to="AnimationComponent" method="_on_player_player_jumped"]
 [connection signal="animation_finished" from="Sprite2D/AnimationPlayer/AnimationTree" to="AnimationComponent" method="_on_animation_tree_animation_finished"]
+[connection signal="area_shape_entered" from="HitboxComponent" to="HitboxComponent" method="_on_area_shape_entered"]
 [connection signal="player_died" from="HealthComponent" to="AnimationComponent" method="_on_health_component_player_died"]
 [connection signal="player_hurt" from="HealthComponent" to="AnimationComponent" method="_on_health_component_player_hurt"]

@@ -11,3 +11,4 @@ func _on_area_entered(area: Area2D) -> void:
 		
 		if(has_attack):
 			took_damage.emit(attack_node)
+
