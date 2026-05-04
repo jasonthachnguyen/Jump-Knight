@@ -233,8 +233,8 @@ func _process(delta: float) -> void:
 
 [node name="Player" type="CharacterBody2D" unique_id=1331366943 groups=["Player"]]
 z_index = 5
-position = Vector2(-1, 0)
-collision_mask = 6
+position = Vector2(-1, 1)
+collision_mask = 46
 script = ExtResource("1_onrkg")
 _goomba_velocity = -400.0
 
@@ -277,5 +277,4 @@ script = ExtResource("5_fjrip")
 [connection signal="player_jumped" from="." to="AnimationComponent" method="_on_player_player_jumped"]
 [connection signal="animation_finished" from="Sprite2D/AnimationPlayer/AnimationTree" to="AnimationComponent" method="_on_animation_tree_animation_finished"]
 [connection signal="area_shape_entered" from="HitboxComponent" to="HitboxComponent" method="_on_area_shape_entered"]
-[connection signal="player_died" from="HealthComponent" to="AnimationComponent" method="_on_health_component_player_died"]
 [connection signal="player_hurt" from="HealthComponent" to="AnimationComponent" method="_on_health_component_player_hurt"]

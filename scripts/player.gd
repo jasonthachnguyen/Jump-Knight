@@ -3,6 +3,7 @@ extends CharacterBody2D
 @export var _speed: float = 130.0
 @export var _jump_velocity: float = -300.0
 @export var _goomba_velocity: float = -500.0
+var _is_alive = true
 
 signal player_jumped(jumped: bool)
 signal direction_changed(dir: int)
@@ -21,13 +22,14 @@ var _direction: float:
 func _ready():
 	if(hitbox_component.has_signal("took_damage")):
 		hitbox_component.took_damage.connect(alertHealth)
+
+	GameManager.player_died.connect(_on_player_died)
 		
 func alertHealth(attack: AttackComponent):
 	health_component.damage(attack)
 	
 	
 func _physics_process(delta: float) -> void:
-	# Add the gravity.
 	if not is_on_floor():
 		player_jumped.emit(true)
 		velocity += get_gravity() * delta
@@ -35,12 +37,13 @@ func _physics_process(delta: float) -> void:
 	if is_on_floor():
 		player_jumped.emit(false)
 		
-	if Input.is_action_just_pressed("jump") and is_on_floor():
+	if Input.is_action_just_pressed("jump") and is_on_floor() and _is_alive:
 		velocity.y = _jump_velocity
 
-	
+		
 	#Get the input direction
-	_direction = Input.get_axis("move_left", "move_right")
+	if _is_alive:
+		_direction = Input.get_axis("move_left", "move_right")
 
 	#Apply movement
 	if _direction:
@@ -50,6 +53,13 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 	
+	
 
 func _on_player_goombaed() -> void:
 	velocity.y = _goomba_velocity 
+	
+
+func _on_player_died() -> void:
+	velocity.x = 0
+	_speed = 0
+	_is_alive = false	

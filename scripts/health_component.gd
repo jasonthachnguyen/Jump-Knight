@@ -2,7 +2,6 @@ extends Node2D
 class_name HealthComponent
 @export var MAX_HP: float;
 
-signal player_died ()
 signal player_hurt ()
 var current_hp: float
 
@@ -13,7 +12,6 @@ func damage(attack: AttackComponent):
 	current_hp -= attack.atkDmg;
 	print("current hp is %s" % current_hp)
 	if(current_hp <= 0):
-		GameManager.on_game_over()
-		player_died.emit()
+		GameManager._on_game_over()
 	else:
 		player_hurt.emit()

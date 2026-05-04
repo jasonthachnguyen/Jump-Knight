@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://ciy6hr2k08tsl" path="res://scripts/awake_area_trigger.gd" id="4_pjw23"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_p2gj0"]
+radius = 6.5217257
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n6pvg"]
 size = Vector2(77, 22.5)
@@ -189,6 +190,14 @@ collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_n6pvg")
 
+[node name="AttackAreaTrigger" type="Area2D" parent="." unique_id=1815127160]
+position = Vector2(0, 8)
+scale = Vector2(0.9200019, 0.43999922)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackAreaTrigger" unique_id=1689020178]
+shape = SubResource("CircleShape2D_p2gj0")
+
 [node name="RayCastRight" type="RayCast2D" parent="." unique_id=1430580249]
 position = Vector2(0, 4)
 target_position = Vector2(8, 0)
@@ -203,14 +212,6 @@ collision_mask = 4
 position = Vector2(0, 2)
 scale = Vector2(0.9200019, 0.43999922)
 target_position = Vector2(0, -15.909111)
-
-[node name="AttackAreaTrigger" type="Area2D" parent="." unique_id=1815127160]
-position = Vector2(0, 8)
-scale = Vector2(0.9200019, 0.43999922)
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackAreaTrigger" unique_id=1689020178]
-shape = SubResource("CircleShape2D_p2gj0")
 
 [node name="AttackComponent" parent="." unique_id=887944364 instance=ExtResource("3_n6pvg")]
 atkDmg = 2.0

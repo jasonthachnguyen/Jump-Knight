@@ -9,6 +9,9 @@ var is_moving: bool
 var died: bool
 var hurt: bool
 
+func _ready() -> void:
+	GameManager.player_died.connect(_on_player_died)
+
 func _on_player_direction_changed(dir) -> void:
 	_change_sprite_dir(dir)
 	_change_is_moving(dir)
@@ -38,7 +41,7 @@ func _change_sprite_dir(dir):
 		)
 
 
-func _on_health_component_player_died() -> void:
+func _on_player_died() -> void:
 	died = true
 
 
