@@ -8,9 +8,11 @@ var jumped: bool
 var is_moving: bool
 var died: bool
 var hurt: bool
+var _riding_pslime: bool
 
 func _ready() -> void:
 	GameManager.player_died.connect(_on_player_died)
+	
 
 func _on_player_direction_changed(dir) -> void:
 	_change_sprite_dir(dir)
@@ -52,3 +54,12 @@ func _on_health_component_player_hurt() -> void:
 func _on_animation_tree_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "hurt":
 		hurt = false
+
+
+func _on_player_player_purple_goombaed() -> void:
+	_riding_pslime = true	
+
+
+
+func _on_player_player_no_purple_power() -> void:
+	_riding_pslime = false

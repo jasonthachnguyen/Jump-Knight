@@ -34,10 +34,7 @@ func _process(_delta: float) -> void:
 		velocity.x = _direction * _SPEED
 
 	if _ray_cast_goomba.is_colliding() and _ray_cast_goomba.get_collider() is CharacterBody2D:
-		var node = _ray_cast_goomba.get_collider()
-		if node.has_signal("player_goombaed"):
-			node.emit_signal("player_goombaed")
-		queue_free()
+		_handle_goomba()
 
 func _physics_process(_delta: float) -> void:
 	move_and_slide()
@@ -53,6 +50,12 @@ func _handle_health(damage: float):
 func _on_slime_awake() -> void:	
 	if awakened == false:
 		awakened = true
+
+func _handle_goomba() -> void:
+		var node = _ray_cast_goomba.get_collider()
+		if node.has_signal("player_goombaed"):
+			node.emit_signal("player_goombaed")
+		queue_free()
 
 #ANIMATION
 func _update_animation_parameters():

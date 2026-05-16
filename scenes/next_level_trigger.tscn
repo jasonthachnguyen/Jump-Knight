@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://gfvg5uyrrc1j"]
+
+[ext_resource type="Script" uid="uid://bjr51ueogivpy" path="res://scenes/next_level_trigger.gd" id="1_wlk2y"]
+
+[node name="NextLevelTrigger" type="Area2D" unique_id=1663152821]
+script = ExtResource("1_wlk2y")

@@ -101,6 +101,23 @@ tracks/0/keys = {
 "values": [Vector2i(0, 2), Vector2i(1, 2), Vector2i(2, 2), Vector2i(3, 2), Vector2i(4, 2), Vector2i(5, 2), Vector2i(6, 2), Vector2i(7, 2), Vector2i(0, 3), Vector2i(1, 3), Vector2i(2, 3), Vector2i(3, 3), Vector2i(4, 3), Vector2i(5, 3), Vector2i(6, 3), Vector2i(7, 3)]
 }
 
+[sub_resource type="Animation" id="Animation_d2wvv"]
+resource_name = "riding_pslime"
+length = 0.5
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.40140936),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector2i(2, 4), Vector2i(3, 4), Vector2i(4, 4)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_y4r1p"]
 _data = {
 &"RESET": SubResource("Animation_smehm"),
@@ -108,7 +125,8 @@ _data = {
 &"hurt": SubResource("Animation_fjrip"),
 &"idle": SubResource("Animation_ur7pv"),
 &"jump": SubResource("Animation_tuyoq"),
-&"move": SubResource("Animation_y4r1p")
+&"move": SubResource("Animation_y4r1p"),
+&"riding_pslime": SubResource("Animation_d2wvv")
 }
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qlg0r"]
@@ -125,6 +143,9 @@ animation = &"jump"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_smehm"]
 animation = &"move"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_y4r1p"]
+animation = &"riding_pslime"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_y4r1p"]
 advance_mode = 2
@@ -193,21 +214,43 @@ advance_mode = 2
 switch_mode = 2
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fulsm"]
+advance_mode = 2
+advance_expression = "_riding_pslime"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ke2ow"]
+advance_mode = 2
+advance_expression = "_riding_pslime == false"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ujl30"]
+advance_mode = 2
+advance_expression = "_riding_pslime"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_31cv2"]
+advance_mode = 2
+advance_expression = "_riding_pslime"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_smehm"]
+advance_mode = 2
+advance_expression = "_riding_pslime"
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_qfm1y"]
 states/End/position = Vector2(702, -127)
 states/Start/position = Vector2(-138, -96)
 states/death/node = SubResource("AnimationNodeAnimation_qlg0r")
 states/death/position = Vector2(540, -108)
 states/hurt/node = SubResource("AnimationNodeAnimation_ur7pv")
-states/hurt/position = Vector2(162, 205)
+states/hurt/position = Vector2(18, -137)
 states/idle/node = SubResource("AnimationNodeAnimation_tuyoq")
-states/idle/position = Vector2(162, -91)
+states/idle/position = Vector2(162, -90)
 states/jump/node = SubResource("AnimationNodeAnimation_fjrip")
-states/jump/position = Vector2(313, 1)
+states/jump/position = Vector2(477, -238)
 states/move/node = SubResource("AnimationNodeAnimation_smehm")
 states/move/position = Vector2(300, -184)
-transitions = ["idle", "move", SubResource("AnimationNodeStateMachineTransition_y4r1p"), "move", "jump", SubResource("AnimationNodeStateMachineTransition_d2wvv"), "jump", "death", SubResource("AnimationNodeStateMachineTransition_3v2ag"), "move", "death", SubResource("AnimationNodeStateMachineTransition_jej6c"), "idle", "death", SubResource("AnimationNodeStateMachineTransition_f1ej7"), "move", "idle", SubResource("AnimationNodeStateMachineTransition_oprun"), "jump", "move", SubResource("AnimationNodeStateMachineTransition_a8ls1"), "Start", "idle", SubResource("AnimationNodeStateMachineTransition_qlg0r"), "idle", "jump", SubResource("AnimationNodeStateMachineTransition_tuyoq"), "jump", "idle", SubResource("AnimationNodeStateMachineTransition_fjrip"), "move", "hurt", SubResource("AnimationNodeStateMachineTransition_qfm1y"), "jump", "hurt", SubResource("AnimationNodeStateMachineTransition_4r5pv"), "idle", "hurt", SubResource("AnimationNodeStateMachineTransition_60mlk"), "hurt", "death", SubResource("AnimationNodeStateMachineTransition_i4ail"), "hurt", "move", SubResource("AnimationNodeStateMachineTransition_a38lo"), "hurt", "jump", SubResource("AnimationNodeStateMachineTransition_4ni07"), "hurt", "idle", SubResource("AnimationNodeStateMachineTransition_l71n6")]
-graph_offset = Vector2(-253, -222)
+states/riding_pslime/node = SubResource("AnimationNodeAnimation_y4r1p")
+states/riding_pslime/position = Vector2(122, -363)
+transitions = ["idle", "move", SubResource("AnimationNodeStateMachineTransition_y4r1p"), "move", "jump", SubResource("AnimationNodeStateMachineTransition_d2wvv"), "jump", "death", SubResource("AnimationNodeStateMachineTransition_3v2ag"), "move", "death", SubResource("AnimationNodeStateMachineTransition_jej6c"), "idle", "death", SubResource("AnimationNodeStateMachineTransition_f1ej7"), "move", "idle", SubResource("AnimationNodeStateMachineTransition_oprun"), "jump", "move", SubResource("AnimationNodeStateMachineTransition_a8ls1"), "Start", "idle", SubResource("AnimationNodeStateMachineTransition_qlg0r"), "idle", "jump", SubResource("AnimationNodeStateMachineTransition_tuyoq"), "jump", "idle", SubResource("AnimationNodeStateMachineTransition_fjrip"), "move", "hurt", SubResource("AnimationNodeStateMachineTransition_qfm1y"), "jump", "hurt", SubResource("AnimationNodeStateMachineTransition_4r5pv"), "idle", "hurt", SubResource("AnimationNodeStateMachineTransition_60mlk"), "hurt", "death", SubResource("AnimationNodeStateMachineTransition_i4ail"), "hurt", "move", SubResource("AnimationNodeStateMachineTransition_a38lo"), "hurt", "jump", SubResource("AnimationNodeStateMachineTransition_4ni07"), "hurt", "idle", SubResource("AnimationNodeStateMachineTransition_l71n6"), "idle", "riding_pslime", SubResource("AnimationNodeStateMachineTransition_fulsm"), "riding_pslime", "jump", SubResource("AnimationNodeStateMachineTransition_ke2ow"), "move", "riding_pslime", SubResource("AnimationNodeStateMachineTransition_ujl30"), "hurt", "riding_pslime", SubResource("AnimationNodeStateMachineTransition_31cv2"), "jump", "riding_pslime", SubResource("AnimationNodeStateMachineTransition_smehm")]
+graph_offset = Vector2(-69, -427)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dqkch"]
 radius = 4.0
@@ -275,6 +318,8 @@ script = ExtResource("5_fjrip")
 [connection signal="direction_changed" from="." to="AnimationComponent" method="_on_player_direction_changed"]
 [connection signal="player_goombaed" from="." to="." method="_on_player_goombaed"]
 [connection signal="player_jumped" from="." to="AnimationComponent" method="_on_player_player_jumped"]
+[connection signal="player_no_purple_power" from="." to="AnimationComponent" method="_on_player_player_no_purple_power"]
+[connection signal="player_purple_goombaed" from="." to="AnimationComponent" method="_on_player_player_purple_goombaed"]
 [connection signal="animation_finished" from="Sprite2D/AnimationPlayer/AnimationTree" to="AnimationComponent" method="_on_animation_tree_animation_finished"]
 [connection signal="area_shape_entered" from="HitboxComponent" to="HitboxComponent" method="_on_area_shape_entered"]
 [connection signal="player_hurt" from="HealthComponent" to="AnimationComponent" method="_on_health_component_player_hurt"]
