@@ -4,6 +4,7 @@ extends CharacterBody2D
 @export var _jump_velocity: float = -300.0
 @export var _goomba_velocity: float = -500.0
 @export var _pslime_speed_bonus: float = 80.0
+var _is_debug_mode: bool = false
 var _curr_speed: float  = _base_speed
 var _is_alive: bool = true
 
@@ -54,6 +55,24 @@ func _physics_process(delta: float) -> void:
 		if _riding_pslime:
 			_riding_pslime = false
 		velocity.y = _jump_velocity
+	
+	if Input.is_action_pressed("enter_debug"):
+		_is_debug_mode = true
+
+	if Input.is_action_just_pressed("load_level1") and _is_debug_mode:
+		var level_one_path = LevelManager.get_path_to_specific_scene(1)
+		get_tree().change_scene_to_file(level_one_path)
+
+	if Input.is_action_pressed("load_level2") and _is_debug_mode: 
+		var level_two_path = LevelManager.get_path_to_specific_scene(2)
+		get_tree().change_scene_to_file(level_two_path)
+
+	if Input.is_action_pressed("load_level3") and _is_debug_mode:
+		var level_three_path = LevelManager.get_path_to_specific_scene(3)
+		get_tree().change_scene_to_file(level_three_path)
+	
+	if Input.is_action_pressed("restart_level"):
+		get_tree().reload_current_scene()
 
 		
 	var _raw_direction = Input.get_axis("move_left", "move_right")
